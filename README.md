@@ -17,10 +17,19 @@ The goal of this project is to save time for students by automatically gathering
 
 ## 🚀 Installation
 
-1. Clone this repository:
+1. **Set up the project**
    ```bash
+   # Clone the repository
    git clone https://github.com/your-username/examPrepScraper.git
-   cd examPrepScraper
-2. Install the python dependencies:
-  ```bash
+   cd webscraper
+
+   # (Optional but recommended) Create a virtual environment
+   python -m venv venv
+   source venv/bin/activate   # On Linux/Mac
+   venv\Scripts\activate      # On Windows
+
+   # Install dependencies
    pip install -r requirements.txt
+
+   # Create a .env file in the root directory and add your YouTube API key
+   echo "YOUTUBE_API_KEY=your_api_key_here" > .env
