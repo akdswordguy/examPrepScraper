@@ -25,12 +25,9 @@ except Exception:
 YOUTUBE_API_KEY = config.get("YOUTUBE_API_KEY", "")
 GOOGLE_BOOKS_BASE = "https://www.googleapis.com/books/v1/volumes"
 WIKIPEDIA_SEARCH_API = "https://en.wikipedia.org/w/api.php"
-WIKIPEDIA_REST_PAGE = "https://en.wikipedia.org/api/rest_v1/page/html/{}"  # slug
+WIKIPEDIA_REST_PAGE = "https://en.wikipedia.org/api/rest_v1/page/html/{}"  
 
 
-# ---------------------------
-# Helper: Wikipedia search & fetch
-# ---------------------------
 def wiki_search_title(query: str) -> Optional[str]:
     """Search Wikipedia and return the best-matching page title."""
     params = {"action": "query", "list": "search", "srsearch": query, "format": "json", "srlimit": 5}
@@ -119,9 +116,7 @@ def find_relevant_wiki_info(query: str) -> Dict[str, Optional[str]]:
     return out
 
 
-# ---------------------------
-# YouTube search
-# ---------------------------
+
 def search_youtube_videos(query: str, max_results: int = 5) -> List[Dict]:
     """Search YouTube videos for exam preparation."""
     if not HAVE_YT or not YOUTUBE_API_KEY:
@@ -147,9 +142,7 @@ def search_youtube_videos(query: str, max_results: int = 5) -> List[Dict]:
     except Exception:
         return []
 
-# ---------------------------
-# YouTube search - Modified to fetch one playlist
-# ---------------------------
+
 def search_youtube_playlist(query: str) -> Optional[Dict]:
     """
     Requires google-api-python-client and a valid YOUTUBE_API_KEY set in env var or variable above.
@@ -181,9 +174,7 @@ def search_youtube_playlist(query: str) -> Optional[Dict]:
     except Exception:
         return None
     
-# ---------------------------
-# Google Books suggestions
-# ---------------------------
+
 def search_google_books(query: str, max_results: int = 6) -> List[Dict]:
     """Search Google Books API for exam prep books."""
     try:
@@ -204,10 +195,6 @@ def search_google_books(query: str, max_results: int = 6) -> List[Dict]:
     except Exception:
         return []
 
-
-# ---------------------------
-# Free PYQs from Examsnet & Selfstudys
-# ---------------------------
 def fetch_free_pyqs_links(exam_query: str) -> List[Dict]:
     """
     Web-scrape solved PYQs from Examsnet and Selfstudys.
@@ -255,9 +242,6 @@ def fetch_free_pyqs_links(exam_query: str) -> List[Dict]:
     return scraped_links[:5]
 
 
-# ---------------------------
-# Main fetch function
-# ---------------------------
 def fetch_exam_info_universal(exam_query: str, include_videos: bool = True, include_books: bool = True) -> Dict:
     """Fetch Wikipedia info, YouTube videos, YouTube playlist, Google Books, and free PYQs."""
     result = {
@@ -270,9 +254,8 @@ def fetch_exam_info_universal(exam_query: str, include_videos: bool = True, incl
     }
     return result
 
-# ---------------------------
-# CLI demonstration
-# ---------------------------
+
+
 if __name__ == "__main__":
     print("Universal Exam Info Fetcher (Wikipedia + YouTube + Google Books + Solved PYQs)")
     q = input("Enter exam name (e.g., NEET, JEE Main, CLAT, UPSC, CUET, SSC CGL): ").strip()
